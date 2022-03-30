@@ -9,6 +9,12 @@ MySteppingAction::~MySteppingAction() {
 }
 
 void MySteppingAction::UserSteppingAction(const G4Step *step) {
+	G4Track *track = step->GetTrack();
+	G4double energy = track->GetKineticEnergy();
+	if (energy < 0.1) {
+		track->SetTrackStatus(fStopAndKill);
+		return;
+	}
 	/*G4LogicalVolume *volume = step->GetPreStepPoint()->GetTouchableHandle()->GetVolume()->GetLogicalVolume();
 	
 	const MyDetectorConstruction *detectorConstruction = static_cast<const MyDetectorConstruction*> (G4RunManager::GetRunManager()->GetUserDetectorConstruction());

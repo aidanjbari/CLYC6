@@ -37,10 +37,6 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct() {
 	Li->AddIsotope(Li7, 5.*perCent);
 	Clyc6->AddElement(Li, 1);
 	
-	G4Material *CsI = new G4Material("CsI", 4.51*g/cm3, 2);
-	CsI->AddElement(nist->FindOrBuildElement("Cs"), 1);
-	CsI->AddElement(nist->FindOrBuildElement("I"), 1);
-	
 	G4double rEnergy[1] = {3.06133809*eV};
 	G4double rindexClyc6[1] = {1.81};
 	G4double absLengthE[2] = {100000.*eV, 662000.*eV};
@@ -56,7 +52,7 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct() {
 	mptClyc6->AddConstProperty("RESOLUTIONSCALE", 1.0);
 	mptClyc6->AddConstProperty("SCINTILLATIONTIMECONSTANT1", 1.*ns);
 	mptClyc6->AddConstProperty("SCINTILLATIONYIELD1", 1.0);
-	CsI->SetMaterialPropertiesTable(mptClyc6);
+	Clyc6->SetMaterialPropertiesTable(mptClyc6);
 	
 	G4Tubs *solidClyc6 = new G4Tubs("solidClyc6", 0.*cm, 5.08*cm, 5.08*cm, 0.*deg, 360.*deg);
 	logicClyc6 = new G4LogicalVolume(solidClyc6, Clyc6, "logicClyc6");

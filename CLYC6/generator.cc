@@ -1,25 +1,17 @@
 #include "generator.hh"
 
 MyPrimaryGenerator::MyPrimaryGenerator() {
-	fParticleGun = new G4ParticleGun(1);
+	fParticleSource = new G4GeneralParticleSource;
 }
 
 MyPrimaryGenerator::~MyPrimaryGenerator() {
-	delete fParticleGun;
+	delete fParticleSource;
 }
 
 void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
-	G4ParticleTable *particleTable = G4ParticleTable::GetParticleTable();
-	G4String particleName = "gamma";
-	G4ParticleDefinition *particle = particleTable->FindParticle(particleName);
-	
 	G4ThreeVector pos(0.,0.,0.);
-	G4ThreeVector mom(0.,0.,1.);
 	
-	fParticleGun->SetParticlePosition(pos);
-	fParticleGun->SetParticleMomentumDirection(mom);
-	fParticleGun->SetParticleMomentum(0.662*MeV);
-	fParticleGun->SetParticleDefinition(particle);
+	fParticleSource->SetParticlePosition(pos);
 	
-	fParticleGun->GeneratePrimaryVertex(anEvent);
+	fParticleSource->GeneratePrimaryVertex(anEvent);
 }
